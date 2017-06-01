@@ -65,7 +65,8 @@ public class DownloadTask extends AsyncTask<String,Void,String> {
                 String imageUrl = " http://image.tmdb.org/t/p/w185/" + tempObject.getString("poster_path");
                 MovieObject newMovie = new MovieObject(tempObject.getString("title"), imageUrl);
                 Movies.add(newMovie);
-                //MainActivity.myAdapter.notifyDataSetChanged();
+                MainActivity.myGridView.setAdapter(MainActivity.myAdapter);
+                MainActivity.myAdapter.notifyDataSetChanged();
 
             }
 

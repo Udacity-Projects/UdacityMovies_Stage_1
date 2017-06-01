@@ -60,6 +60,6 @@ public class GridViewAdapter extends BaseAdapter {
         Glide.with(context).load(tempObject.getMovieURL().trim()).into(myImageView);
         myTextView.setText(tempObject.getMovieTitle());
 
-        return null;
+        return gridView;
     }
 }
