@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         myGridView = (GridView) findViewById(R.id.myGridLayout);
 
         DownloadTask newTask = new DownloadTask();
-        newTask.execute("https://api.themoviedb.org/3/movie/top_rated?api_key=<<API KEY>>&language=en-US&page=1");
+        newTask.execute("https://api.themoviedb.org/3/movie/top_rated?api_key=984eb4f6c311eabbe5fd13dc82c16ab7&language=en-US&page=1");
 
         myAdapter = new GridViewAdapter(Movies,this);
-
+        myGridView.setAdapter(myAdapter);
 
     }
 }

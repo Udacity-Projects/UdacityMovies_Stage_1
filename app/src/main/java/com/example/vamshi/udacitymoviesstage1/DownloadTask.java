@@ -76,7 +76,7 @@ public class DownloadTask extends AsyncTask<String,Void,String> {
             e1.printStackTrace();
         }
 
-        MainActivity.myGridView.setAdapter(MainActivity.myAdapter);
+
 
         super.onPostExecute(s);
     }
