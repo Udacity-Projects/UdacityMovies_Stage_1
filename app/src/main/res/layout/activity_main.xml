@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.vamshi.udacitymoviesstage1.MainActivity">
 
+
+
+
     <GridView
-        android:id="@+id/mYGridLayout"
+        android:id="@+id/myGridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numColumns = "auto_fit"
-        >
-
-    </GridView>
+        android:numColumns="auto_fit"/>
 
 
 

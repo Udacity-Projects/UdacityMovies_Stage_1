@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +14,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import static com.example.vamshi.udacitymoviesstage1.MainActivity.Movies;
 
 /**
  * Created by Vamshi on 5/31/2017.
@@ -57,15 +61,18 @@ public class DownloadTask extends AsyncTask<String,Void,String> {
             for(int i=0; i<=resultArray.length(); i++){
 
                 JSONObject tempObject = resultArray.getJSONObject(i);
+
                 String imageUrl = " http://image.tmdb.org/t/p/w185/" + tempObject.getString("poster_path");
                 MovieObject newMovie = new MovieObject(tempObject.getString("title"), imageUrl);
-                MainActivity.Movies.add(newMovie);
-                MainActivity.myAdapter.notifyDataSetChanged();
+                Movies.add(newMovie);
+                //MainActivity.myAdapter.notifyDataSetChanged();
 
             }
 
 
+
             } catch (JSONException e1) {
+
             e1.printStackTrace();
         }
 
