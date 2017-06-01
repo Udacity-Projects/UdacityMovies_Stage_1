@@ -1,6 +1,7 @@
 package com.example.vamshi.udacitymoviesstage1;
 
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,9 @@ public class DownloadTask extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPostExecute(String s) {
+
+        MainActivity.myProgress.setVisibility(View.GONE);
+        MainActivity.myGridView.setVisibility(View.VISIBLE);
 
         try {
 

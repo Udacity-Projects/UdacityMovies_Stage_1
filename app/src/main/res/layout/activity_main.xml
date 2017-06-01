@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,6 +8,13 @@
     tools:context="com.example.vamshi.udacitymoviesstage1.MainActivity">
 
 
+    <ProgressBar
+        android:id="@+id/progressDialog"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        />
 
 
     <GridView
@@ -18,4 +25,4 @@
 
 
 
-</LinearLayout>
+</RelativeLayout>
