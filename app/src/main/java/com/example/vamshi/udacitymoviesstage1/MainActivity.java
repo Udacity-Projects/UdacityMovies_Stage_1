@@ -32,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
     static List<MovieObject> Movies;
     static GridViewAdapter myAdapter;
     static ProgressBar myProgress;
-    public RadioGroup myRadioGroup;
-    public RadioButton myRadioButton;
-    public RadioButton myRadioButton2;
+
     public Boolean popular = true;
     public Boolean Rating = false;
 
@@ -42,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myRadioGroup = (RadioGroup)findViewById(R.id.myRadioGroup);
-        myRadioButton = (RadioButton)findViewById(R.id.popularity);
-        myRadioButton2= (RadioButton)findViewById(R.id.Ratings);
+
         Movies = new ArrayList<>();
         myProgress = (ProgressBar)findViewById(R.id.progressDialog);
         myProgress.setVisibility(View.VISIBLE);
@@ -62,9 +58,17 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MovieObject temo = Movies.get(position);
-                String v = Long.toString(id);
 
-                Toast.makeText(MainActivity.this, v , Toast.LENGTH_SHORT).show();
+                Intent in = new Intent(MainActivity.this, DisplayMovieDetails.class);
+                in.putExtra("POSTER_URL", temo.getMovieURL());
+                in.putExtra("ORIGINAL_TITLE", temo.getMovieOriginalTitle());
+                in.putExtra("SYNOPSIS", temo.getMovieSynopsis());
+                in.putExtra("RATING", temo.getMovieRating());
+                in.putExtra("RELEASE_DATE", temo.getMovieReleaseDate());
+                in.putExtra("ORIGINAL_TITLE", temo.getMovieOriginalTitle());
+                startActivity(in);
+
+
             }
         });
 
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         DownloadTask newTask = new DownloadTask();
         if((Rating == true)&& (popular == false)) {
-            Movies.clear();
+
 
             newTask.execute("https://api.themoviedb.org/3/movie/top_rated?api_key=984eb4f6c311eabbe5fd13dc82c16ab7&language=en-US&page=1");
             myGridView.setAdapter(myAdapter);
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if((Rating == false)&& (popular == true)){
-            Movies.clear();
+
             newTask.execute("https://api.themoviedb.org/3/movie/popular?api_key=984eb4f6c311eabbe5fd13dc82c16ab7&language=en-US&page=1");
             myGridView.setAdapter(myAdapter);
 
@@ -110,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
                 popular = true;
                 Rating = false;
                 LoadUI();
+
+
                 myAdapter.notifyDataSetChanged();
 
             case R.id.Ratings:

@@ -2,10 +2,6 @@ package com.example.vamshi.udacitymoviesstage1;
 
 import android.os.AsyncTask;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,6 +54,7 @@ public class DownloadTask extends AsyncTask<String,Void,String> {
         MainActivity.myProgress.setVisibility(View.GONE);
         MainActivity.myGridView.setVisibility(View.VISIBLE);
 
+
         try {
 
             JSONObject root = new JSONObject(result);
@@ -67,7 +64,12 @@ public class DownloadTask extends AsyncTask<String,Void,String> {
                 JSONObject tempObject = resultArray.getJSONObject(i);
 
                 String imageUrl = " http://image.tmdb.org/t/p/w185/" + tempObject.getString("poster_path");
-                MovieObject newMovie = new MovieObject(tempObject.getString("title"), imageUrl);
+                MovieObject newMovie = new MovieObject(tempObject.getString("title"),
+                                                        imageUrl,
+                                                        tempObject.getString("overview"),
+                                                        tempObject.getString("vote_average"),
+                                                        tempObject.getString("release_date"),
+                                                        tempObject.getString("original_title"));
                 Movies.add(newMovie);
                 MainActivity.myGridView.setAdapter(MainActivity.myAdapter);
                 MainActivity.myAdapter.notifyDataSetChanged();
