@@ -71,8 +71,11 @@ public class DownloadTask extends AsyncTask<String,Void,String> {
                 Movies.add(newMovie);
                 MainActivity.myGridView.setAdapter(MainActivity.myAdapter);
                 MainActivity.myAdapter.notifyDataSetChanged();
+                //
 
             }
+            //MainActivity.myGridView.setAdapter(MainActivity.myAdapter);
+
 
 
 
