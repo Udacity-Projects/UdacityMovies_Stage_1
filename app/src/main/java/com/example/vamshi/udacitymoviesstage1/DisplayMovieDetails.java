@@ -32,7 +32,7 @@ public class DisplayMovieDetails extends AppCompatActivity {
         Intent in = getIntent();
 
         Glide.with(this).load(in.getStringExtra("POSTER_URL").trim()).into(movie_poster);
-        Toast.makeText(this, in.getStringExtra("POSTER_URL"), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, in.getStringExtra("POSTER_URL"), Toast.LENGTH_SHORT).show();
         movie_title.setText(in.getStringExtra("ORIGINAL_TITLE"));
         movie_release.setText("(" + in.getStringExtra("RELEASE_DATE") + ")");
         movie_rating.setText("Rating: " + in.getStringExtra("RATING"));

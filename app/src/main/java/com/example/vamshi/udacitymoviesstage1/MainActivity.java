@@ -1,7 +1,10 @@
 package com.example.vamshi.udacitymoviesstage1;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -47,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
         myGridView = (GridView) findViewById(R.id.myGridLayout);
         myGridView.setVisibility(View.GONE);
 
-
+        if(!isNetworkAvailable()){
+            Toast.makeText(this, "Please Connect To The Internet!", Toast.LENGTH_SHORT).show();
+        }
         LoadUI();
+
 
         myAdapter = new GridViewAdapter(Movies,this);
         //myGridView.setAdapter(myAdapter);
@@ -74,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
     private void LoadUI() {
 
         Movies.clear();
@@ -82,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
         if((Rating == true)&& (popular == false)) {
 
 
-            newTask.execute("https://api.themoviedb.org/3/movie/top_rated?api_key=984eb4f6c311eabbe5fd13dc82c16ab7&language=en-US&page=1");
+
+            newTask.execute("https://api.themoviedb.org/3/movie/top_rated?api_key=<<INSERT API KEY>>&language=en-US&page=1");
             myGridView.setAdapter(myAdapter);
 
 
@@ -90,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         if((Rating == false)&& (popular == true)){
 
-            newTask.execute("https://api.themoviedb.org/3/movie/popular?api_key=984eb4f6c311eabbe5fd13dc82c16ab7&language=en-US&page=1");
+            newTask.execute("https://api.themoviedb.org/3/movie/popular?api_key=<<INSERT API KEY>>&language=en-US&page=1");
             myGridView.setAdapter(myAdapter);
 
 
