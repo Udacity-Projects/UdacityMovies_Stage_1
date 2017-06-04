@@ -3,6 +3,7 @@ package com.example.vamshi.udacitymoviesstage1;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.ContactsContract;
@@ -35,29 +36,28 @@ public class MainActivity extends AppCompatActivity {
     static List<MovieObject> Movies;
     static GridViewAdapter myAdapter;
     static ProgressBar myProgress;
+    static String SortBy = "POPULAR";
 
-    public Boolean popular = true;
-    public Boolean Rating = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Toast.makeText(this, SortBy, Toast.LENGTH_SHORT).show();
         Movies = new ArrayList<>();
         myProgress = (ProgressBar)findViewById(R.id.progressDialog);
         myProgress.setVisibility(View.VISIBLE);
         myGridView = (GridView) findViewById(R.id.myGridLayout);
         myGridView.setVisibility(View.GONE);
 
+        // CHECKING NETWORK CONNECTION
         if(!isNetworkAvailable()){
             Toast.makeText(this, "Please Connect To The Internet!", Toast.LENGTH_SHORT).show();
+        }else{
+            LoadUI(SortBy);
         }
-        LoadUI();
-
 
         myAdapter = new GridViewAdapter(Movies,this);
-        //myGridView.setAdapter(myAdapter);
 
         myGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -87,28 +87,19 @@ public class MainActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    private void LoadUI() {
-
-        Movies.clear();
-
+    static void LoadUI(String sort) {
+        String s= sort;
         DownloadTask newTask = new DownloadTask();
-        if((Rating == true)&& (popular == false)) {
-
-
-
-            newTask.execute("https://api.themoviedb.org/3/movie/top_rated?api_key=<<INSERT API KEY>>&language=en-US&page=1");
+        Movies.clear();
+        if(s == "POPULAR"){
+            newTask.execute("https://api.themoviedb.org/3/movie/popular?api_key=984eb4f6c311eabbe5fd13dc82c16ab7&language=en-US&page=1");
             myGridView.setAdapter(myAdapter);
-
-
+        }
+        if(s == "RATINGS"){
+            newTask.execute("https://api.themoviedb.org/3/movie/top_rated?api_key=984eb4f6c311eabbe5fd13dc82c16ab7&language=en-US&page=1");
+            myGridView.setAdapter(myAdapter);
         }
 
-        if((Rating == false)&& (popular == true)){
-
-            newTask.execute("https://api.themoviedb.org/3/movie/popular?api_key=<<INSERT API KEY>>&language=en-US&page=1");
-            myGridView.setAdapter(myAdapter);
-
-
-        }
 
     }
 
@@ -124,22 +115,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.PopularitySort:
-                popular = true;
-                Rating = false;
-                LoadUI();
 
-
-                myAdapter.notifyDataSetChanged();
-
-            case R.id.Ratings:
-                popular = false;
-                Rating = true;
-
-                LoadUI();
-                myAdapter.notifyDataSetChanged();
+            case R.id.Settings: {
+                Intent in = new Intent(MainActivity.this, Settings.class);
+                startActivity(in);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
 }
+
+

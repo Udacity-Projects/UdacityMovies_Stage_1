@@ -3,15 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/PopularitySort"
-        app:showAsAction=""
-        android:title="Popularity"
-        />
+        android:id="@+id/Settings"
+        app:showAsAction="never"
+        android:title="Sort By"/>
 
-    <item
-        android:id="@+id/Ratings"
-        app:showAsAction=""
-        android:title="Ratings"
-        />
 
 </menu>
